@@ -1,0 +1,23 @@
+.lista-usuarios-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.usuarios-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+/* On very small viewports, avoid vertical centering so content can scroll naturally */
+@media (max-height: 700px) {
+  .lista-usuarios-wrapper {
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+}

@@ -2,14 +2,16 @@
     background-image: url("../assets/img/bg-home.png"); 
     background-size: cover;
     background-position: center; 
+    background-repeat: no-repeat; 
     background-attachment: fixed;
     width: 100%;
-    flex: 1;
-    align-self: stretch;
+    min-height: calc(100vh - 70px); 
     display: flex;
     align-items: center; 
-    justify-content: flex-start; 
-    padding-left: 30px;
+    justify-content: space-between; 
+    padding: 0 8%; 
+    box-sizing: border-box; 
+    gap: 20px; 
 }
 
 .login-container {
@@ -55,6 +57,7 @@
     color: #ffffff;
     border-color: #db5cc8; 
     box-shadow: 0 0 0 0.2rem rgba(219, 92, 200, 0.25); 
+    outline: none;
 }
 
 .btn-login {
@@ -73,7 +76,8 @@
 
 .btn-login:hover {
     background-color: #4B2E70; 
-    transform: translateY(-1px); 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 12px rgba(93, 59, 140, 0.4);
 }
 
 .btn-login:active {
@@ -89,4 +93,57 @@
 
 .signup-link a {
     font-weight: bold; 
+    transition: opacity 0.2s ease;
+}
+
+.signup-link a:hover {
+    opacity: 0.8;
+}
+
+/* =========================================
+   MENSAJE INSPIRACIONAL
+   ========================================= */
+
+.inspirational-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+}
+
+.inspirational-quote {
+    background-color: rgba(20, 15, 35, 0.55); 
+    backdrop-filter: blur(12px); 
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(219, 92, 200, 0.35); 
+    color: white;
+    text-align: left; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.inspirational-quote:hover {
+    transform: translateY(-5px);
+}
+
+.inspirational-quote h2 {
+    color: #db5cc8; 
+    margin-top: 0;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(219, 92, 200, 0.3);
+}
+
+.inspirational-quote p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin: 0;
+    color: #e2d9f3;
+    font-style: italic;
+    font-weight: 300;
 }

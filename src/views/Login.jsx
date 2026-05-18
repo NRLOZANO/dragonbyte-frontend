@@ -27,6 +27,8 @@ const Login = () => {
 
   return (
     <div className="home">
+      
+      {/* LADO IZQUIERDO: Formulario de Login */}
       <div className="login-container">
         <h1 className="login-title">DRAGONBYTES</h1>
         
@@ -65,6 +67,17 @@ const Login = () => {
           </Link>
         </p>
       </div>
+
+      {/* LADO DERECHO: Mensaje Inspiracional */}
+      <div className="inspirational-container">
+        <div className="inspirational-quote">
+          <h2>Forja el Futuro</h2>
+          <p>
+            "El código no es solo lógica, es el lenguaje con el que damos vida a las ideas. Cada línea que escribes es una chispa; cada error superado, un escalón hacia la maestría. Entra, enciende tu mente y deja que tu curiosidad arda hasta conquistar lo imposible."
+          </p>
+        </div>
+      </div>
+
     </div>
   );
 };

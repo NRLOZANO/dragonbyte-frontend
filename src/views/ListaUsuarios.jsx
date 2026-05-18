@@ -4,6 +4,8 @@ import fotoNelson from '../assets/img/Nelson.jpg';
 import fotoPaola from '../assets/img/Paola.jpg';
 import fotoSalome from '../assets/img/Salome.jpg';
 import fotoPaulina from '../assets/img/Paulina.jpg';
+import fondoFAQDragon from '../assets/img/FAQDragon.jpeg';
+import './ListaUsuarios.css';
 
 const ListaUsuarios = () => {
   const [usuarios, setUsuarios] = useState([
@@ -14,12 +16,22 @@ const ListaUsuarios = () => {
   ]);
 
   return (
-    
-    <div style={{ padding: '20px', paddingTop: '100px', paddingBottom: '50px', width: '100%' }}>
+    <div className="lista-usuarios-wrapper" style={{ 
+      backgroundImage: `url(${fondoFAQDragon})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      /* Use scroll so background behaves per-page and doesn't create fixed viewport issues */
+      backgroundAttachment: 'scroll',
+      flex: 1,
+      width: '100%',
+      paddingBottom: '20px', 
+      boxSizing: 'border-box'
+    }}>
       <h2 style={{ color: 'white', textAlign: 'center', marginBottom: '40px', fontSize: '2.5em', textTransform: 'uppercase', letterSpacing: '2px' }}>
         DragonByte Team
       </h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '30px' }}>
+      <div className="usuarios-grid">
         {usuarios.map((user) => (
           <UsuarioCard key={user.id} usuario={user} />
         ))}
