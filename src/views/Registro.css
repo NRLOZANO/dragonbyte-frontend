@@ -5,14 +5,10 @@ body, html, #root {
 
 .register {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     padding-left: 8%;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    position: relative;
-    z-index: 1;
-    min-height: 100%;
+    flex: 1;
     width: 100%;
     box-sizing: border-box;
     background-image: url('../assets/img/bg-register.jpeg');
@@ -23,122 +19,94 @@ body, html, #root {
 }
 
 .register-container {
-    background-color: rgba(188, 106, 184, 0.85); 
-    padding: 30px 40px;
+    background-color: rgba(188, 106, 184, 0.85);
+    padding: 20px 30px;
     border-radius: 15px;
     width: 100%;
-    max-width: 580px; 
+    max-width: 620px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
     color: white;
-    margin-top: 20px; 
-    margin-bottom: 30px; 
 }
 
 .register-title {
     color: #1e0232;
-    font-size: 2em; 
+    font-size: 1.5em;
     font-weight: bold;
     letter-spacing: 1px;
-    margin-bottom: 25px;
-    text-align: center; 
+    margin-bottom: 15px;
+    text-align: center;
 }
 
-.register-container .form-group {
-    margin-bottom: 18px;
-}
-
-.register-container .form-group label,
-.register-container fieldset legend.dob-legend {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #e0e0e0; 
-}
-
-.register-container fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 18px; 
-}
-
-.register-container fieldset legend.dob-legend {
-    font-size: 1.05em; 
-    padding: 0;
+.form-row {
+    display: flex;
+    gap: 12px;
     margin-bottom: 10px;
 }
 
-.dob-group {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px; 
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
 }
 
-.dob-group > div {
-    flex: 1; 
+.form-group {
+    margin-bottom: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-size: 0.85em;
+    color: #e0e0e0;
 }
 
 .register-container .form-control {
-    background-color: #3B2F50; 
-    border: 1px solid #5A4D70; 
+    background-color: #3B2F50;
+    border: 1px solid #5A4D70;
     border-radius: 8px;
-    color: #ffffff; 
-    padding: 10px 15px; 
-    font-size: 1em;
-    width: 100%; 
-    box-sizing: border-box; 
+    color: #ffffff;
+    padding: 7px 12px;
+    font-size: 0.9em;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .register-container .form-control::placeholder {
-    color: #B0A5C8; 
-    opacity: 0.8; 
+    color: #B0A5C8;
+    opacity: 0.8;
 }
 
 .register-container .form-control:focus {
-    background-color: #45385E; 
+    background-color: #45385E;
     color: #ffffff;
-    border-color: #db5cc8; 
-    box-shadow: 0 0 0 0.2rem rgba(219, 92, 200, 0.25); 
-}
-
-.btn-register, .btn-return {
-    padding: 10px 0; 
-    width: 100%;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    display: block; 
-    text-decoration: none; 
-    transition: background-color 0.3s ease, transform 0.1s ease, border-color 0.3s ease;
+    border-color: #db5cc8;
+    box-shadow: 0 0 0 0.2rem rgba(219, 92, 200, 0.25);
+    outline: none;
 }
 
 .btn-register {
-    background-color: #5D3B8C; 
-    color: #ffffff;
+    padding: 10px 0;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    display: block;
     border: none;
-    margin-top: 25px;
-    margin-bottom: 12px;
+    background-color: #5D3B8C;
+    color: #ffffff;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 .btn-register:hover {
-    background-color: #4B2E70; 
-    transform: translateY(-1px); 
-}
-
-.btn-return {
-    background-color: transparent; 
-    color: #1e0232;
-    font-style: italic;
-    font-size: smaller;
-    padding: 5px !important;
-}
-
-.btn-return:hover {
-    background-color: rgba(90, 77, 112, 0.3);
-    border-color: #a090bc;
-    color: #fbf9fd;
+    background-color: #4B2E70;
+    transform: translateY(-1px);
 }
 
 .register-container select.form-control {
