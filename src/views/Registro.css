@@ -16,8 +16,9 @@ body, html, #root {
     width: 100%;
     box-sizing: border-box;
     background-image: url('../assets/img/bg-register.jpeg');
-    background-size: 100% 100%;
-    background-attachment: scroll;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     background-color: #1e0232;
 }
 
