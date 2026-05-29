@@ -18,7 +18,7 @@ body, html, #root {
     background-image: url('../assets/img/bg-register.jpeg');
     background-size: cover;
     background-position: top center; 
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-color: #1e0232;
 }
 
