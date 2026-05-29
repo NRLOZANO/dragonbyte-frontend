@@ -5,12 +5,14 @@ body, html, #root {
 
 .register {
     display: flex;
-    align-items: center; 
+    align-items: flex-start;
     justify-content: flex-start;
     padding-left: 8%;
-    position: relative; 
+    padding-top: 30px;
+    padding-bottom: 30px;
+    position: relative;
     z-index: 1;
-    min-height: 100vh;
+    min-height: 100%;
     width: 100%;
     box-sizing: border-box;
     background-image: url('../assets/img/bg-register.jpeg');
