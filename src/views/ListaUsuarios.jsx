@@ -1,19 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UsuarioCard from '../components/UsuarioCard'; 
 import fotoNelson from '../assets/img/Nelson.jpg';
 import fotoPaola from '../assets/img/Paola.jpg';
 import fotoSalome from '../assets/img/Salome.jpg';
 import fotoPaulina from '../assets/img/Paulina.jpg';
 import fondoFAQDragon from '../assets/img/FAQDragon.jpeg';
+import api from '../services/api';
 import './ListaUsuarios.css';
 
+const mapaImagenes = {
+  'Nelson Lozano': fotoNelson,
+  'Paola Molina': fotoPaola,
+  'Salome Alzate': fotoSalome,
+  'Paulina Londoño': fotoPaulina
+};
+
 const ListaUsuarios = () => {
-  const [usuarios, setUsuarios] = useState([
-    { id: 1, nombre: 'Nelson Lozano', rol: 'Analista WFM', email: 'nelson@ejemplo.com', imagen: fotoNelson },
-    { id: 2, nombre: 'Salome Alzate', rol: 'Estudiante', email: 'msalomealzatep@gmail.com', imagen: fotoSalome },
-    { id: 3, nombre: 'Paulina Londoño', rol: 'Estudiante', email: 'paulinalondonodiaz45@gmail.com', imagen: fotoPaulina },
-    { id: 4, nombre: 'Paola Molina', rol: 'Gerente de Proyecto', email: 'Pmova13@gmail.com', imagen: fotoPaola }
-  ]);
+  const [usuarios, setUsuarios] = useState([]);
+
+  useEffect(() => {
+    const obtenerUsuarios = async () => {
+      try {
+        const response = await api.get('/usuarios');
+        
+        const usuariosConFotos = response.data.map(user => ({
+          ...user,
+          imagen: mapaImagenes[user.nombre] || null
+        }));
+
+        setUsuarios(usuariosConFotos); 
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    obtenerUsuarios();
+  }, []); 
 
   return (
     <div className="lista-usuarios-wrapper" style={{ 
@@ -21,7 +43,6 @@ const ListaUsuarios = () => {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
-      /* Use scroll so background behaves per-page and doesn't create fixed viewport issues */
       backgroundAttachment: 'scroll',
       flex: 1,
       width: '100%',

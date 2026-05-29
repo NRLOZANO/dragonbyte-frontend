@@ -1,123 +1,143 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import api from '../services/api';
 import './Registro.css';
 
 const FormularioRegistro = () => {
-  // Generamos los arreglos para las listas desplegables (Dropdowns) dinámicamente
+  const navigate = useNavigate();
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June', 
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-  // Genera un rango de 100 años hacia atrás desde el año actual
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 
+  const [form, setForm] = useState({
+    nombre: '', apellido: '', genero: '', email: '',
+    password: '', confirmPassword: '', edad: '',
+    pais: '', departamento: '', ciudad: ''
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (form.password !== form.confirmPassword) {
+      Swal.fire({ icon: 'error', title: 'Error', text: 'Las contraseñas no coinciden' });
+      return;
+    }
+    try {
+      await api.post('/usuarios', {
+        nombre: form.nombre,
+        apellido: form.apellido,
+        genero: form.genero,
+        edad: parseInt(form.edad),
+        email: form.email,
+        password: form.password,
+        rol: 'JUGADOR',
+        ubicacion: {
+          pais: form.pais,
+          departamento: form.departamento,
+          ciudad: form.ciudad
+        }
+      });
+      await Swal.fire({ icon: 'success', title: '¡Cuenta creada!', text: 'Ya puedes iniciar sesión', timer: 1800, showConfirmButton: false });
+      navigate('/');
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Error al registrar. Intenta nuevamente.';
+      Swal.fire({ icon: 'error', title: 'Error', text: msg });
+    }
+  };
+
   return (
-    <div className="register" style={{ padding: '20px' }}> 
+    <div className="register" style={{ padding: '20px' }}>
       <div className="register-container">
         <h2 className="register-title">CREATE AN ACCOUNT</h2>
-        <form id="registrationForm">
+        <form id="registrationForm" onSubmit={handleSubmit}>
 
-          {/* NAME & LAST NAME (Agrupados en una fila) */}
           <div style={{ display: 'flex', gap: '15px', marginBottom: '15px' }}>
             <div className="form-group" style={{ flex: 1 }}>
-              <label htmlFor="regName">Name</label>
-              <input type="text" className="form-control" id="regName" name="regName" placeholder="First Name" required />
+              <label htmlFor="nombre">Name</label>
+              <input type="text" className="form-control" id="nombre" name="nombre" placeholder="First Name" value={form.nombre} onChange={handleChange} required />
             </div>
             <div className="form-group" style={{ flex: 1 }}>
-              <label htmlFor="regLastName">Last Name</label>
-              <input type="text" className="form-control" id="regLastName" name="regLastName" placeholder="Last Name" required />
+              <label htmlFor="apellido">Last Name</label>
+              <input type="text" className="form-control" id="apellido" name="apellido" placeholder="Last Name" value={form.apellido} onChange={handleChange} required />
             </div>
           </div>
 
-          {/* GENDER */}
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="regGender">Gender</label>
-            <select className="form-control" id="regGender" name="regGender" required>
+            <label htmlFor="genero">Gender</label>
+            <select className="form-control" id="genero" name="genero" value={form.genero} onChange={handleChange} required>
               <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-              <option value="Prefer not to say">Prefer not to say</option>
+              <option value="Masculino">Male</option>
+              <option value="Femenino">Female</option>
+              <option value="Otro">Other</option>
+              <option value="Prefiero no decir">Prefer not to say</option>
             </select>
           </div>
 
-          {/* E-MAIL */}
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="regEmail">E-mail Address</label>
-            <input type="email" className="form-control" id="regEmail" name="regEmail" placeholder="your.email@example.com" required />
-          </div>
-
-          {/* PASSWORD & CONFIRM PASSWORD */}
-          <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="regPassword">Password</label>
-            <input type="password" className="form-control" id="regPassword" name="regPassword" placeholder="At least 8 characters" required />
+            <label htmlFor="email">E-mail Address</label>
+            <input type="email" className="form-control" id="email" name="email" placeholder="your.email@example.com" value={form.email} onChange={handleChange} required />
           </div>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="regConfirmPassword">Confirm Password</label>
-            <input type="password" className="form-control" id="regConfirmPassword" name="regConfirmPassword" placeholder="Repeat Password" required />
+            <label htmlFor="password">Password</label>
+            <input type="password" className="form-control" id="password" name="password" placeholder="At least 8 characters" value={form.password} onChange={handleChange} required />
           </div>
 
-          {/* AGE */}
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="regAge">Age</label>
-            <input type="number" className="form-control" id="regAge" name="regAge" min="5" max="120" placeholder="Age" required />
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input type="password" className="form-control" id="confirmPassword" name="confirmPassword" placeholder="Repeat Password" value={form.confirmPassword} onChange={handleChange} required />
           </div>
 
-          {/* BIRTH DATE (Listas dinámicas) */}
+          <div className="form-group" style={{ marginBottom: '15px' }}>
+            <label htmlFor="edad">Age</label>
+            <input type="number" className="form-control" id="edad" name="edad" min="5" max="120" placeholder="Age" value={form.edad} onChange={handleChange} required />
+          </div>
+
           <fieldset className="form-group" style={{ marginBottom: '15px' }}>
             <legend className="dob-legend">Birth Date</legend>
             <div className="dob-group" style={{ display: 'flex', gap: '10px' }}>
-              
               <div style={{ flex: 1 }}>
                 <label htmlFor="regDobDay">Day</label>
-                <select className="form-control" id="regDobDay" name="regDobDay" required>
+                <select className="form-control" id="regDobDay" name="regDobDay">
                   <option value="">Day</option>
-                  {days.map(day => (
-                    <option key={day} value={day}>{day}</option>
-                  ))}
+                  {days.map(day => <option key={day} value={day}>{day}</option>)}
                 </select>
               </div>
-
               <div style={{ flex: 1 }}>
                 <label htmlFor="regDobMonth">Month</label>
-                <select className="form-control" id="regDobMonth" name="regDobMonth" required>
+                <select className="form-control" id="regDobMonth" name="regDobMonth">
                   <option value="">Month</option>
-                  {months.map((month, index) => (
-                    <option key={index} value={index + 1}>{month}</option>
-                  ))}
+                  {months.map((month, index) => <option key={index} value={index + 1}>{month}</option>)}
                 </select>
               </div>
-
               <div style={{ flex: 1 }}>
                 <label htmlFor="regDobYear">Year</label>
-                <select className="form-control" id="regDobYear" name="regDobYear" required>
+                <select className="form-control" id="regDobYear" name="regDobYear">
                   <option value="">Year</option>
-                  {years.map(year => (
-                    <option key={year} value={year}>{year}</option>
-                  ))}
+                  {years.map(year => <option key={year} value={year}>{year}</option>)}
                 </select>
               </div>
-
             </div>
           </fieldset>
 
-          {/* COUNTRY */}
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="regCountry">Country</label>
-            <input type="text" className="form-control" id="regCountry" name="regCountry" placeholder="Country" required />
+            <label htmlFor="pais">Country</label>
+            <input type="text" className="form-control" id="pais" name="pais" placeholder="Country" value={form.pais} onChange={handleChange} required />
           </div>
 
-          {/* STATE & CITY (Agrupados en una fila) */}
           <div style={{ display: 'flex', gap: '15px', marginBottom: '25px' }}>
             <div className="form-group" style={{ flex: 1 }}>
-              <label htmlFor="regState">State / Department</label>
-              <input type="text" className="form-control" id="regState" name="regState" placeholder="State / Dept." required />
+              <label htmlFor="departamento">State / Department</label>
+              <input type="text" className="form-control" id="departamento" name="departamento" placeholder="State / Dept." value={form.departamento} onChange={handleChange} required />
             </div>
             <div className="form-group" style={{ flex: 1 }}>
-              <label htmlFor="regCity">City</label>
-              <input type="text" className="form-control" id="regCity" name="regCity" placeholder="City" required />
+              <label htmlFor="ciudad">City</label>
+              <input type="text" className="form-control" id="ciudad" name="ciudad" placeholder="City" value={form.ciudad} onChange={handleChange} required />
             </div>
           </div>
 

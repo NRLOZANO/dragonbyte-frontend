@@ -1,9 +1,9 @@
 .pagina-wrapper {
-  width: 100%;
-  height: 100%;
   flex: 1;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  overflow: hidden;
 }
 
 .fondo-pantalla-completa {
