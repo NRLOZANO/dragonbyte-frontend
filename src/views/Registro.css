@@ -7,7 +7,7 @@ body, html, #root {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 8%;
+    padding-left: 3%;
     flex: 1;
     width: 100%;
     box-sizing: border-box;
